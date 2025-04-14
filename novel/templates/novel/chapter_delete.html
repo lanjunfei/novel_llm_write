@@ -1,0 +1,15 @@
+<!-- novel/templates/novel/chapter_confirm_delete.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}删除章节{% endblock %}
+
+{% block content %}
+<h2>确认删除该章节吗？</h2>
+<p>章节标题：{{ object.title }}</p>
+<form method="post">
+  {% csrf_token %}
+  <input type="submit" value="确认删除">
+  <a href="{% url 'chapter_list' novel_id=object.novel.id %}">取消</a>
+</form>
+{% endblock %}

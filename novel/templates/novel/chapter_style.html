@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}章节设计查看{% endblock %}
+
+{% block content %}
+<h2>章节设计查看</h2>
+<p><strong>标题：</strong>{{ chapter.title }}</p>
+<p><strong>摘要：</strong>{{ chapter.summary }}</p>
+<p><strong>人物变化：</strong>{{ chapter.characters_change }}</p>
+<p><strong>矛盾冲突：</strong>{{ chapter.conflict }}</p>
+<p><strong>氛围基调：</strong>{{ chapter.mood }}</p>
+<p><strong>关键词：</strong>{{ chapter.keywords }}</p>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}章节列表{% endblock %}
+
+{% block content %}
+<h2>章节列表 - {{ novel.title }}</h2>
+
+<div>
+  <a href="{% url 'chapter_create' novel.id %}">新增章节</a>
+</div>
+
+{% if chapters %}
+  <table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+      <tr>
+        <th>章节名</th>
+        <th>完成时间</th>
+        <th>章节序号</th>
+        <th>章节字数</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for chapter in chapters %}
+        <tr>
+          <td>{{ chapter.title }}</td>
+          <td>{{ chapter.created_at|date:"Y-m-d H:i" }}</td>
+          <td>{{ chapter.order }}</td>
+          <td>{{ chapter.content|length }}</td>
+          <td>
+            <!-- 查看(只读设计) -->
+            <a href="{% url 'chapter_style' chapter.id %}">章节设计查看</a>
+            <!-- 编辑正文 -->
+            <a href="{% url 'chapter_content' chapter.id %}">章节内容</a>
+            <!-- 扩展章节内容 -->
+            <a href="{% url 'chapter_extend' chapter.id %}">扩展章节内容</a>
+            <!-- 发布/取消发布 -->
+            {% if chapter.published %}
+              <a href="{% url 'chapter_unpublish' chapter.id %}">取消发布</a>
+            {% else %}
+              <a href="{% url 'chapter_publish' chapter.id %}">发布</a>
+            {% endif %}
+            <!-- 删除 -->
+            <a href="{% url 'chapter_delete' chapter.id %}" onclick="return confirm('确认删除该章节吗？')">删除</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>你还没有任何章节</p>
+{% endif %}
+{% endblock %}

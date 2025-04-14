@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  {% if title %}
+    <title>大模型小说创作平台 - {{ title }}</title>
+  {% else %}
+    <title>大模型小说创作平台</title>
+  {% endif %}
+
+  <!-- 加载静态文件标签库 -->
+  {% load static %}
+
+  <!-- 引入静态CSS文件 -->
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+<header>
+  <div class="header-content">
+    <h3 class="site-title">大模型小说创作平台</h3>
+    <h4><a href="{% url 'novel_list' %}">我的小说</a></h4>
+    <h4><a href="{% url 'novel_read_list' %}">小说阅读</a></h4>
+  </div>
+
+  {% if user.is_authenticated %}
+    <p>欢迎, {{ user.username }} |
+       <a href="{% url 'logout' %}">退出</a>
+    </p>
+  {% else %}
+    <p>
+      <a href="{% url 'login' %}">登录</a> |
+      <a href="{% url 'register' %}">注册</a>
+    </p>
+  {% endif %}
+  <hr>
+</header>
+
+<div>
+  {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+        <div class="message">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+
+<div class="content">
+  {% block content %}{% endblock %}
+</div>
+
+<footer>
+  <hr>
+  <p>© 2025 www.paperllm.cn</p>
+</footer>
+
+</body>
+</html>

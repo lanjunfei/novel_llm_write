@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}删除小说{% endblock %}
+
+{% block content %}
+<h2>确认删除该小说吗？</h2>
+<p>标题：{{ object.title }}</p>
+<form method="post">
+  {% csrf_token %}
+  <input type="submit" value="确认删除">
+  <a href="{% url 'novel_list' %}">取消</a>
+</form>
+{% endblock %}

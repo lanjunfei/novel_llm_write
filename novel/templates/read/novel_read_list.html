@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}已发布小说阅读{% endblock %}
+
+{% block content %}
+<h1>可阅读的小说列表(仅登录用户)</h1>
+
+<table border="1" cellpadding="8" cellspacing="0">
+  <thead>
+    <tr>
+      <th>小说名</th>
+      <th>作者</th>
+      <th>类型</th>
+      <th>风格</th>
+      <th>最新章节生成时间</th>
+      <th>章节数</th>
+      <th>平均评分</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for novel in novels %}
+      <tr>
+        <td>{{ novel.title }}</td>
+        <td>{{ novel.user.username }}</td>
+        <td>{{ novel.genre.name|default:"-" }}</td>
+        <td>{{ novel.style.name|default:"-" }}</td>
+        <td>
+          {% if novel.latest_chapter_time %}
+            {{ novel.latest_chapter_time|date:"Y-m-d H:i" }}
+          {% else %}
+            -
+          {% endif %}
+        </td>
+        <td>{{ novel.chapter_count|default:0 }}</td>
+        <td>
+          {% if novel.avg_rating %}
+            {{ novel.avg_rating|floatformat:1 }}
+          {% else %}
+            暂无评分
+          {% endif %}
+        </td>
+        <td>
+          <a href="{% url 'chapter_read_list' novel.id %}">章节阅读</a>
+          <a href="{% url 'novel_comment' novel.id %}">小说点评</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="8">暂时没有已发布小说</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

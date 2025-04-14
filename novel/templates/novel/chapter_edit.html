@@ -1,0 +1,17 @@
+<!-- novel/templates/novel/chapter_edit.html -->
+{% extends "base.html" %}
+
+{% block title %}编辑章节{% endblock %}
+
+{% block content %}
+<h2>编辑章节：{{ chapter.title }}</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">保存修改</button>
+</form>
+
+<p><strong>当前章节顺序：</strong> {{ chapter.order }}</p>
+<p>你可以手动修改章节的顺序，保存后将会按照新的顺序进行显示。</p>
+
+{% endblock %}

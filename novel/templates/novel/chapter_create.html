@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}新增章节{% endblock %}
+
+{% block content %}
+<h2>新增章节</h2>
+<form method="post">
+  {% csrf_token %}
+  <table>
+    {{ form.as_table }}
+  </table>
+
+  <p>
+    请选择生成模型:
+    <br>
+    <label>
+        <input type="radio" name="model_choice" value="openai" checked> OpenAI
+    </label>
+    <label>
+        <input type="radio" name="model_choice" value="deepseek"> DeepSeek
+    </label>
+  </p>
+
+  <button type="submit">生成章节内容</button>
+</form>
+{% endblock %}

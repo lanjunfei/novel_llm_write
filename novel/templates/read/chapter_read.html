@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}章节阅读{% endblock %}
+
+{% block content %}
+<h2>{{ novel.title }} - {{ chapter.title }}</h2>
+
+<!-- 字体调整控件 -->
+<div style="margin-bottom: 20px;">
+  <label for="font-family">选择字体类型: </label>
+  <select id="font-family" onchange="changeFontFamily()">
+    <option value="Roboto">Roboto</option>
+    <option value="Arial">Arial</option>
+    <option value="Georgia">Georgia</option>
+  </select>
+
+  <label for="font-size">选择字体大小: </label>
+  <select id="font-size" onchange="changeFontSize()">
+    <option value="16px">16px</option>
+    <option value="18px">18px</option>
+    <option value="20px">20px</option>
+    <option value="22px">22px</option>
+  </select>
+
+  <label for="line-height">选择行间距: </label>
+  <select id="line-height" onchange="changeLineHeight()">
+    <option value="1.4">1.4</option>
+    <option value="1.6">1.6</option>
+    <option value="1.8">1.8</option>
+  </select>
+</div>
+
+<!-- 小说章节内容 -->
+<div>
+  <pre id="chapter-content" style="white-space: pre-wrap; font-family: 'Roboto', sans-serif; font-size: 16px; line-height: 1.6;">
+    {{ chapter.content }}
+  </pre>
+</div>
+
+<a href="{% url 'chapter_read_list' novel.id %}">返回章节列表</a>
+
+<script>
+  // 修改字体类型
+  function changeFontFamily() {
+    const fontFamily = document.getElementById('font-family').value || 'sans-serif'; // 默认回退字体
+    document.getElementById('chapter-content').style.fontFamily = fontFamily;
+  }
+
+  // 修改字体大小
+  function changeFontSize() {
+    const fontSize = document.getElementById('font-size').value;
+    document.getElementById('chapter-content').style.fontSize = fontSize;
+  }
+
+  // 修改行间距
+  function changeLineHeight() {
+    const lineHeight = document.getElementById('line-height').value;
+    document.getElementById('chapter-content').style.lineHeight = lineHeight;
+  }
+</script>
+{% endblock %}

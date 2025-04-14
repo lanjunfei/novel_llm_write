@@ -1,0 +1,67 @@
+<!-- novel/templates/novel/index.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}我的小说列表{% endblock %}
+
+{% block content %}
+<h1>我的小说列表</h1>
+
+<div class="action-buttons">
+  <a href="{% url 'novel_create' %}">新建小说</a>
+</div>
+
+<table border="1" cellpadding="8" cellspacing="0">
+  <thead>
+    <tr>
+      <th>小说名称</th>
+      <th>创建时间</th>
+      <th>类型</th>
+      <th>风格</th>
+      <th>章节数</th>
+      <th>字数统计</th>
+      <th>状态</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for novel in novels %}
+      <tr>
+        <td>{{ novel.title }}</td>
+        <td>{{ novel.created_at|date:"Y-m-d H:i" }}</td>
+        <td>{{ novel.genre.name|default:"-" }}</td>
+        <td>{{ novel.style.name|default:"-" }}</td>
+        <td>{{ novel.chapter_count|default:0 }}</td>
+        <td>{{ novel.total_words|default:0 }}</td>
+        <td>
+          {% if novel.published %}已发布{% else %}未发布{% endif %}
+        </td>
+        <td>
+          <!-- 整体设计编辑 -->
+          <a href="{% url 'novel_style' pk=novel.id %}">整体设计编辑</a>
+          <!-- 章节管理 -->
+          <a href="{% url 'chapter_list' novel.id %}">进入章节</a>
+          <!-- 查看评论(跳转到阅读区的评论页面) -->
+          <a href="{% url 'novel_comment' novel.id %}">查看评论</a>
+
+          <!-- 发布/取消发布 -->
+          {% if novel.published %}
+            <a href="{% url 'novel_unpublish' pk=novel.id %}" onclick="return confirm('确认取消发布吗？')">取消发布</a>
+          {% else %}
+            <a href="{% url 'novel_publish' pk=novel.id %}" onclick="return confirm('确认发布此小说吗？')">发布</a>
+          {% endif %}
+
+          <!-- 删除 -->
+          <a href="{% url 'novel_delete' pk=novel.id %}" onclick="return confirm('确认删除此小说吗？')">删除</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="8">还没有任何小说，快去创建吧！</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
+
+

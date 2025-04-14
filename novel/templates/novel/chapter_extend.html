@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>章节内容扩展: {{ chapter.title }}</h3>
+
+<form method="POST">
+    {% csrf_token %}
+    <p>
+        <label for="content">章节内容:</label><br>
+        <textarea id="content" readonly rows="20" cols="120">{{ chapter.content }}</textarea>
+    </p>
+
+    <p>
+        <label for="multiplier">请选择扩展倍数:</label><br>
+        <label>
+            <input type="radio" id="multiplier" name="multiplier" value="2" checked> 2倍
+        </label>
+        <label>
+            <input type="radio" id="multiplier" name="multiplier" value="3"> 3倍
+        </label>
+    </p>
+
+    <p>
+        <label for="model_choice_openai">请选择生成模型:</label><br>
+        <label>
+            <input type="radio" id="model_choice_openai" name="model_choice" value="openai" checked> OpenAI
+        </label>
+        <label>
+            <input type="radio" id="model_choice_deepseek" name="model_choice" value="deepseek"> DeepSeek
+        </label>
+    </p>
+
+    <button type="submit">扩展章节内容</button>
+</form>
+
+{% endblock %}

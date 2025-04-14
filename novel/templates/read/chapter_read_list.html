@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}章节阅读列表{% endblock %}
+
+{% block content %}
+<h2>《{{ novel.title }}》 - 已发布章节</h2>
+
+{% if chapters %}
+  <ul>
+    {% for ch in chapters %}
+      <li>
+        第{{ ch.order }}章：{{ ch.title }} 
+        [<a href="{% url 'chapter_read' ch.id %}">阅读</a>]
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>暂无已发布章节</p>
+{% endif %}
+
+<a href="{% url 'novel_read_list' %}">返回小说列表</a>
+{% endblock %}

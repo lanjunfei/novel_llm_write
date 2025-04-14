@@ -1,0 +1,43 @@
+<!-- registration/login.html -->
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>用户登录</h2>
+  <form method="POST">
+    {% csrf_token %}
+    <div>
+      {{ form.username.label_tag }} {{ form.username }}
+      {% if form.username.errors %}
+        <div class="errorlist">{{ form.username.errors.0 }}</div>
+      {% endif %}
+    </div>
+    <div>
+      {{ form.password.label_tag }} {{ form.password }}
+      {% if form.password.errors %}
+        <div class="errorlist">{{ form.password.errors.0 }}</div>
+      {% endif %}
+    </div>
+    <div>
+      {{ form.captcha.label_tag }} {{ form.captcha }}
+      {% if form.captcha.errors %}
+        <div class="errorlist">{{ form.captcha.errors.0 }}</div>
+      {% endif %}
+      <br>
+      <img src="{% url 'captcha_image' %}"
+           onclick="this.src='{% url 'captcha_image' %}?'+Math.random()"
+           alt="点击刷新验证码"
+           style="cursor: pointer; margin-top: 5px; width: 200px; height: auto;">
+    </div>
+    {% if form.non_field_errors %}
+      <div class="errorlist">
+        {% for e in form.non_field_errors %}
+        <div>{{ e }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    <button type="submit">登录</button>
+  </form>
+  <p>还没有账号？<a href="{% url 'register' %}">去注册</a></p>
+  <p><a href="{% url 'password_reset' %}">忘记密码？</a></p>
+{% endblock %}
+

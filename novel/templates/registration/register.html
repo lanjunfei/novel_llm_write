@@ -1,0 +1,43 @@
+<!-- registration/register.html -->
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>用户注册</h2>
+  <form method="POST">
+    {% csrf_token %}
+    <div>
+      {{ form.username.label_tag }} {{ form.username }}
+      {% if form.username.errors %}
+        <div class="errorlist">{{ form.username.errors.0 }}</div>
+      {% endif %}
+    </div>
+    <div>
+      {{ form.email.label_tag }} {{ form.email }}
+      {% if form.email.errors %}
+        <div class="errorlist">{{ form.email.errors.0 }}</div>
+      {% endif %}
+    </div>
+    <div>
+      {{ form.password1.label_tag }} {{ form.password1 }}
+      {% if form.password1.errors %}
+        <div class="errorlist">{{ form.password1.errors.0 }}</div>
+      {% endif %}
+    </div>
+    <div>
+      {{ form.password2.label_tag }} {{ form.password2 }}
+      {% if form.password2.errors %}
+        <div class="errorlist">{{ form.password2.errors.0 }}</div>
+      {% endif %}
+    </div>
+    {% if form.non_field_errors %}
+      <div class="errorlist">
+        {% for e in form.non_field_errors %}
+        <div>{{ e }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    <button type="submit">注册</button>
+  </form>
+  <p>已有账号？<a href="{% url 'login' %}">去登录</a></p>
+{% endblock %}
+

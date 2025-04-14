@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}小说点评{% endblock %}
+
+{% block content %}
+<h2>《{{ novel.title }}》的评论区</h2>
+
+<p>平均评分：
+{% if avg_rating %}
+  {{ avg_rating|floatformat:1 }}
+{% else %}
+  暂无评分
+{% endif %}
+ / 5
+</p>
+
+<hr>
+
+<!-- 展示已有评论 -->
+{% for review in reviews %}
+  <div style="border:1px solid #ccc; margin-bottom:10px; padding:10px;">
+    <p>用户: {{ review.user.username }}</p>
+    <p>评分: {{ review.rating }}</p>
+    <p>评论: {{ review.content }}</p>
+    <p>时间: {{ review.created_at|date:"Y-m-d H:i" }}</p>
+  </div>
+{% empty %}
+  <p>还没有任何评论，快来抢沙发！</p>
+{% endfor %}
+
+<hr>
+
+<!-- 评论表单(若未评论过) -->
+{% if not has_reviewed %}
+  <h3>我要评论</h3>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">提交</button>
+  </form>
+{% else %}
+  <p style="color:red;">您已经评论过本小说。</p>
+{% endif %}
+
+<a href="{% url 'novel_read_list' %}">返回阅读列表</a>
+{% endblock %}

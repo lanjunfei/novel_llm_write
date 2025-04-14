@@ -1,0 +1,81 @@
+/* 引入 Google Fonts 中的 Roboto 字体 */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* 页面通用字体和布局调整 */
+body {
+    font-family: 'Roboto', sans-serif;  /* 使用 Roboto 字体 */
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* 页面头部 */
+header {
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 4px 2px -2px gray;
+    text-align: center;
+}
+
+header .header-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+header .site-title {
+    margin: 0;
+    font-size: 24px;
+}
+
+header h4 {
+    margin: 0;
+    font-size: 18px;
+}
+
+header a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #ff0000;
+    margin: 10px 0;
+}
+
+/* 消息框 */
+.messages {
+    padding: 10px;
+    background-color: #f0f8ff;
+    border: 1px solid #b0e0e6;
+    margin: 10px 0;
+}
+
+.message {
+    margin: 5px 0;
+    color: green;
+}
+
+/* 主要内容 */
+.content {
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 页脚 */
+footer {
+    text-align: center;
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}

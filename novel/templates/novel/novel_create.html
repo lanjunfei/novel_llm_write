@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}新建小说{% endblock %}
+
+{% block content %}
+<h2>新建小说</h2>
+<form method="post">
+  {% csrf_token %}
+  <table>
+    {{ form.as_table }}
+  </table>
+  <button type="submit">保存设定</button>
+</form>
+{% endblock %}
